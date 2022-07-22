@@ -2,18 +2,23 @@
 @{
     ViewData["Title"] = "Albums";
 }
+<div class="text-center">
+<a type="button" class="btn btn-outline-light " asp-action="Index" asp-route-sort="@ViewData["NameSortParm"]">Sort Alphabetically</a>
+</div>
 
-<a asp-action="Index" asp-route-sort="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.Title)">Albums</a>
+<div class="container">
+    <div class="row">
 @foreach(var item in Model)
 {
-    <div class="flex-wrap">
-    <div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">@item.Title</h5>
-    <a asp-controller="Image" asp-action="Index" asp-route-id="@item.Id" class="btn btn-primary">To Album</a>
-  </div>
+        <div class="col-lg-4 d-flex align-items-stretch py-3">
+            <div class="card text-white bg-primary mb-3d mx-auto" style="width: 20rem;">
+            <h5 class="card-header">@item.Title</h5>
+            <div class="card-body align-self-md-center mt-1">
+            <a asp-controller="Image" asp-action="Index" asp-route-id="@item.Id" class="btn btn-outline-light">To Album</a>
+    </div>
 </div>
 </div>
+
 
 }
 

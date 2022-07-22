@@ -6,6 +6,7 @@ namespace GallerySite.Models
     {
         [Key]
         public int Id { get; set; }
+        [StringLength(80)]
         public string Title { get; set; }
     }
 }
