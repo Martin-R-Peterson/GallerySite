@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Collections;
+using System.ComponentModel.DataAnnotations;
 using System.Net;
 
 namespace GallerySite.Controllers
@@ -10,6 +11,9 @@ namespace GallerySite.Controllers
     {
         static readonly HttpClient _httpClient = new HttpClient();
         public List<AlbumModel> _albums = new List<AlbumModel>();
+
+        [MaxLength(50)]
+        string searchQueryTemp { get; set; }
 
         public AlbumController()
         {
@@ -24,8 +28,9 @@ namespace GallerySite.Controllers
 
 
 
-        public async Task<IActionResult> Index(string? sort)
+        public async Task<IActionResult> Index(string? sort, string? searchQuery)
         {
+            searchQueryTemp = searchQuery;
 
             HttpResponseMessage responseMessage = await _httpClient.GetAsync("albums");
             if (responseMessage.IsSuccessStatusCode)
@@ -57,8 +62,15 @@ namespace GallerySite.Controllers
                         albumsSort = albumsSort.OrderBy(x => x.Title);
                         break;
                 }
-                return View(albumsSort);
 
+                if (!String.IsNullOrEmpty(searchQueryTemp))
+                {
+                    var searchAlbum = _albums.Where(x => x.Title.Contains(searchQueryTemp));
+
+                    return View(searchAlbum);
+                }
+
+                return View(albumsSort);
             }
             return View(_albums);
         }

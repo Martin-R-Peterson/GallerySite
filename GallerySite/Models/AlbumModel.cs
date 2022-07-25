@@ -8,5 +8,7 @@ namespace GallerySite.Models
         public int Id { get; set; }
         [StringLength(80)]
         public string Title { get; set; }
+
+        public string searchQuery { get; set; }
     }
 }
