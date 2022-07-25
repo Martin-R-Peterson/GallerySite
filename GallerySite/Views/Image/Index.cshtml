@@ -10,13 +10,13 @@
     <div class="row">
 @foreach(var item in Model)
 {
-    <div class="card text-white bg-primary m-3" style="width: 18rem;">
+    <div class="card text-white bg-secondary m-3" style="width: 18rem; min-height:28rem;">
   <img class="card-img-top" src="@item.ThumbnailUrl" alt="Card image cap">
-  <div class="card-body">
-    <div class="text-center">
-    <h5 class="card-title">@item.Title</h5>
-    <a href="@item.Url" class="btn btn-outline-secondary mb-xxl-2">Full Image</a>
-    </div>
+  <div class="card-body d-flex flex-column">
+    
+    <h5 class="card-title text-center">@item.Title</h5>
+    
+    <button type="button" href="@item.Url" class="mt-auto btn btn-primary ">Full Image</button>
   </div>
 </div>
 }

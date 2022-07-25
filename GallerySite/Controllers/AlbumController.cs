@@ -9,7 +9,6 @@ namespace GallerySite.Controllers
     public class AlbumController : Controller
     {
         static readonly HttpClient _httpClient = new HttpClient();
-
         public List<AlbumModel> _albums = new List<AlbumModel>();
 
         public AlbumController()
@@ -24,8 +23,8 @@ namespace GallerySite.Controllers
         }
 
 
-        [HttpGet]
-        public async Task<IActionResult> Index(string sort)
+
+        public async Task<IActionResult> Index(string? sort)
         {
 
             HttpResponseMessage responseMessage = await _httpClient.GetAsync("albums");
@@ -35,10 +34,15 @@ namespace GallerySite.Controllers
                 var result = JsonConvert.DeserializeObject<IEnumerable<AlbumModel>>(responseApi);
                 foreach (var item in result)
                 {
-                    var albumTemp = new AlbumModel();
-                    albumTemp.Title = item.Title;
-                    albumTemp.Id = item.Id;
-                    _albums.Add(albumTemp);
+                    if (ModelState.IsValid)
+                    {
+                        var albumTemp = new AlbumModel();
+                        albumTemp.Title = item.Title;
+                        albumTemp.Id = item.Id;
+                        _albums.Add(albumTemp);
+                    }
+
+
 
                 }
                 ViewData["NameSortParm"] = String.IsNullOrEmpty(sort) ? "name_desc" : "";
@@ -54,6 +58,7 @@ namespace GallerySite.Controllers
                         break;
                 }
                 return View(albumsSort);
+
             }
             return View(_albums);
         }

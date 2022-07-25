@@ -6,7 +6,7 @@ namespace GallerySite.Models
     {
         [Required]
         public int AlbumId { get; set; }
-        [Key]
+
         public int Id { get; set; }
         [StringLength(80)]
         public string Title { get; set; }
