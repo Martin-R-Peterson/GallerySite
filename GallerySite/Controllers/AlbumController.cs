@@ -13,7 +13,7 @@ namespace GallerySite.Controllers
         public List<AlbumModel> _albums = new List<AlbumModel>();
 
         [MaxLength(50)]
-        string searchQueryTemp { get; set; }
+        string? searchQueryTemp { get; set; }
 
         public AlbumController()
         {
